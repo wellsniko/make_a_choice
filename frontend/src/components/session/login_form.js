@@ -1,12 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar';
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            email: '',
             handle:'',
             password: '',
             errors: {}
@@ -34,7 +35,6 @@ class LoginForm extends React.Component {
         e.preventDefault();
 
         let user = {
-            email: this.state.email,
             handle: this.state.handle,
             password: this.state.password
         };
@@ -57,13 +57,10 @@ class LoginForm extends React.Component {
     render() {
         return (
             <div>
+                <Avatar style={{ color: "#000000" }} ></Avatar>
+                <Container component="main" maxWidth="xs">
                 <form onSubmit={this.handleSubmit}>
                     <div>
-                        <input type="text"
-                            value={this.state.email}
-                            onChange={this.update('email')}
-                            placeholder="Email"
-                        />
                         <br />
                         <input type="text"
                             value={this.state.handle}
@@ -79,8 +76,10 @@ class LoginForm extends React.Component {
                         <br />
                         <input type="submit" value="Submit" />
                         {this.renderErrors()}
+                        
                     </div>
                 </form>
+                </Container>
             </div>
         );
     }

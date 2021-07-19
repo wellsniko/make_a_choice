@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
 
 class SignupForm extends React.Component {
     constructor(props) {
@@ -57,6 +58,7 @@ class SignupForm extends React.Component {
     render() {
         return (
             <div className="signup-form-container">
+                <Avatar style={{ color: "#000000" }} ></Avatar>
                 <form onSubmit={this.handleSubmit}>
                     <div className="signup-form">
                         <br />

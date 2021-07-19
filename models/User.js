@@ -5,11 +5,25 @@ const UserSchema = new Schema({
     handle: {
         type: String,
         required: true
-    },
-    email: {
+    }, 
+        email: {
         type: String,
+        required: false
+    },
+    answered: {
+        type: Boolean,
         required: true
     },
+    ethnicity: {
+        type: String,
+        required: false
+    },
+    gender: {
+        type: String,
+        required: false
+    },
+
+
     password: {
         type: String,
         required: true

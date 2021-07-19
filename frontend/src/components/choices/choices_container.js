@@ -4,7 +4,8 @@ import Choices from './choices';
 
 const mapStateToProps = (state) => {
     return {
-        choices: Object.values(state.choices.all)
+        choices: Object.values(state.choices.all),
+        user: state.session.user
     };
 };
 

@@ -20,8 +20,8 @@ class Choice extends React.Component {
     }
 
     render() {
-        if (this.state.choices.length === 0) {
-            return (<div>There are no Choices</div>)
+        if (!this.props.user.answered) {
+            return (<div>Pick a number  </div>)
         } else {
             return (
                 <div>

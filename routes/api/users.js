@@ -12,7 +12,8 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     res.json({
         id: req.user.id,
         handle: req.user.handle,
-        email: req.user.email
+        email: req.user.email,
+        answered: req.user.answered
     });
 })
 
@@ -31,6 +32,9 @@ router.post("/register", (req, res) => {
             const newUser = new User({
                 handle: req.body.handle,
                 email: req.body.email,
+                ethnicity: "",
+                gender: "",
+                answered: false,
                 password: req.body.password
             });
 
@@ -41,7 +45,7 @@ router.post("/register", (req, res) => {
                     newUser
                         .save()
                         .then(user => {
-                            const payload = { id: user.id, handle: user.handle };
+                            const payload = { id: user.id, handle: user.handle, email: user.email };
 
                             jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                                 res.json({
@@ -77,7 +81,7 @@ router.post("/login", (req, res) => {
 
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-                const payload = { id: user.id, handle: user.handle };
+                const payload = { id: user.id, handle: user.handle, answered: user.answered  };
 
                 jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                     res.json({
@@ -91,6 +95,21 @@ router.post("/login", (req, res) => {
             }
         });
     });
+});
+
+router.put('/:userId', (req, res) => {
+    console.log(req)
+    let update = {
+        // birthday: req.body.birthday,
+        ethnicity: req.body.ethnicity,
+        gender: req.body.gender,
+        // country: req.body.country,
+        // state: req.body.state
+    }
+    User.findByIdAndUpdate(req.params.userId, update, { new: true })
+        .then((user) => res.json(user))
+        .catch(err =>
+            res.status(404).json({ dataTypeError: 'Wrong data type or no user found' }))
 });
 
 // router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
